@@ -1,0 +1,810 @@
+openapi: 3.0.3
+info:
+  title: 'Task Manager API'
+  description: 'API документация для Task Manager'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/login:
+    post:
+      summary: 'Login user and get token'
+      operationId: loginUserAndGetToken
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+                properties:
+                  token:
+                    type: string
+                    example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email of the user.'
+                  example: user@example.com
+                password:
+                  type: string
+                  description: 'The password of the user.'
+                  example: secret
+              required:
+                - email
+                - password
+      security: []
+  /api/register:
+    post:
+      summary: 'Register new user and get token'
+      operationId: registerNewUserAndGetToken
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user:
+                    id: 1
+                    name: 'John Doe'
+                    email: user@example.com
+                    role_id: 2
+                    created_at: '2023-07-28T12:00:00.000000Z'
+                    updated_at: '2023-07-28T12:00:00.000000Z'
+                  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'John Doe'
+                      email:
+                        type: string
+                        example: user@example.com
+                      role_id:
+                        type: integer
+                        example: 2
+                      created_at:
+                        type: string
+                        example: '2023-07-28T12:00:00.000000Z'
+                      updated_at:
+                        type: string
+                        example: '2023-07-28T12:00:00.000000Z'
+                  token:
+                    type: string
+                    example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the user.'
+                  example: 'John Doe'
+                email:
+                  type: string
+                  description: 'The email of the user.'
+                  example: user@example.com
+                password:
+                  type: string
+                  description: 'The password of the user.'
+                  example: secret
+                role_id:
+                  type: integer
+                  description: 'The id role for user.'
+                  example: 1
+                password_confirmation:
+                  type: string
+                  description: 'The confirmation of the password.'
+                  example: secret
+              required:
+                - name
+                - email
+                - password
+                - role_id
+                - password_confirmation
+      security: []
+  /api/categories:
+    get:
+      summary: 'Get list of categories'
+      operationId: getListOfCategories
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  -
+                    id: 1
+                    name: 'Срочные задачи'
+                    type: standard
+                    created_at: '2023-07-28T12:00:00.000000Z'
+                    updated_at: '2023-07-28T12:00:00.000000Z'
+                  -
+                    id: 2
+                    name: 'Плановые задачи'
+                    type: normal
+                    created_at: '2023-07-28T12:00:00.000000Z'
+                    updated_at: '2023-07-28T12:00:00.000000Z'
+      tags:
+        - Category
+      security: []
+    post:
+      summary: 'Create a new category'
+      operationId: createANewCategory
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 2
+                  name: 'Плановые задачи'
+                  type: normal
+                  created_at: '2023-07-28T12:00:00.000000Z'
+                  updated_at: '2023-07-28T12:00:00.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 2
+                  name:
+                    type: string
+                    example: 'Плановые задачи'
+                  type:
+                    type: string
+                    example: normal
+                  created_at:
+                    type: string
+                    example: '2023-07-28T12:00:00.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2023-07-28T12:00:00.000000Z'
+      tags:
+        - Category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the category.'
+                  example: 'Плановые задачи'
+                type:
+                  type: string
+                  description: 'The type of the category.'
+                  example: normal
+              required:
+                - name
+                - type
+      security: []
+  '/api/categories/{id}':
+    get:
+      summary: 'Get category by ID'
+      operationId: getCategoryByID
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Срочные задачи'
+                  type: standard
+                  created_at: '2023-07-28T12:00:00.000000Z'
+                  updated_at: '2023-07-28T12:00:00.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'Срочные задачи'
+                  type:
+                    type: string
+                    example: standard
+                  created_at:
+                    type: string
+                    example: '2023-07-28T12:00:00.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2023-07-28T12:00:00.000000Z'
+      tags:
+        - Category
+      security: []
+    put:
+      summary: 'Update an existing category'
+      operationId: updateAnExistingCategory
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Обновленные задачи'
+                  type: normal
+                  created_at: '2023-07-28T12:00:00.000000Z'
+                  updated_at: '2023-07-28T12:00:00.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'Обновленные задачи'
+                  type:
+                    type: string
+                    example: normal
+                  created_at:
+                    type: string
+                    example: '2023-07-28T12:00:00.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2023-07-28T12:00:00.000000Z'
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Cannot modify this category'
+                properties:
+                  message:
+                    type: string
+                    example: 'Cannot modify this category'
+      tags:
+        - Category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the category.'
+                  example: 'Обновленные задачи'
+                type:
+                  type: string
+                  description: 'The type of the category.'
+                  example: normal
+              required:
+                - name
+                - type
+      security: []
+    delete:
+      summary: 'Delete a category'
+      operationId: deleteACategory
+      description: ''
+      parameters: []
+      responses:
+        204:
+          description: ''
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Cannot delete this category'
+                properties:
+                  message:
+                    type: string
+                    example: 'Cannot delete this category'
+      tags:
+        - Category
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the category.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: category
+        description: 'The ID of the category.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/tasks:
+    get:
+      summary: "Get list of tasks\n\nRetrieve a list of all tasks. You can filter tasks by category."
+      operationId: getListOfTasksRetrieveAListOfAllTasksYouCanFilterTasksByCategory
+      description: ''
+      parameters:
+        -
+          in: query
+          name: category_id
+          description: 'Filter tasks by category ID.'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Filter tasks by category ID.'
+            example: 1
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  title: 'Finish Project'
+                  description: 'Complete the project by end of the week.'
+                  due_date: '2024-08-05'
+                  category_id: 2
+                  user_id: 1
+                  status: IN_PROGRESS
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: 'Finish Project'
+                  description:
+                    type: string
+                    example: 'Complete the project by end of the week.'
+                  due_date:
+                    type: string
+                    example: '2024-08-05'
+                  category_id:
+                    type: integer
+                    example: 2
+                  user_id:
+                    type: integer
+                    example: 1
+                  status:
+                    type: string
+                    example: IN_PROGRESS
+      tags:
+        - Task
+      security: []
+    post:
+      summary: 'Create a new task'
+      operationId: createANewTask
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  title: 'Finish Project'
+                  description: 'Complete the project by end of the week.'
+                  due_date: '2024-08-05'
+                  category_id: 2
+                  user_id: 1
+                  status: IN_PROGRESS
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: 'Finish Project'
+                  description:
+                    type: string
+                    example: 'Complete the project by end of the week.'
+                  due_date:
+                    type: string
+                    example: '2024-08-05'
+                  category_id:
+                    type: integer
+                    example: 2
+                  user_id:
+                    type: integer
+                    example: 1
+                  status:
+                    type: string
+                    example: IN_PROGRESS
+      tags:
+        - Task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: quia
+                description:
+                  type: string
+                  description: 'The description of the task.'
+                  example: 'Complete the project by end of the week.'
+                due_date:
+                  type: date
+                  description: 'The due date of the task.'
+                  example: '2024-08-05'
+                category_id:
+                  type: integer
+                  description: 'The ID of the category.'
+                  example: 2
+                title:
+                  type: string
+                  description: 'The title of the task.'
+                  example: 'Finish Project'
+              required:
+                - name
+                - due_date
+                - category_id
+                - title
+      security: []
+  '/api/tasks/{id}':
+    get:
+      summary: 'Get a specific task'
+      operationId: getASpecificTask
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  title: 'Finish Project'
+                  description: 'Complete the project by end of the week.'
+                  due_date: '2024-08-05'
+                  category_id: 2
+                  user_id: 1
+                  status: IN_PROGRESS
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: 'Finish Project'
+                  description:
+                    type: string
+                    example: 'Complete the project by end of the week.'
+                  due_date:
+                    type: string
+                    example: '2024-08-05'
+                  category_id:
+                    type: integer
+                    example: 2
+                  user_id:
+                    type: integer
+                    example: 1
+                  status:
+                    type: string
+                    example: IN_PROGRESS
+      tags:
+        - Task
+      security: []
+    put:
+      summary: 'Update a task'
+      operationId: updateATask
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  title: 'Finish Project'
+                  description: 'Complete the project by end of the week.'
+                  due_date: '2024-08-05'
+                  category_id: 2
+                  user_id: 1
+                  status: IN_PROGRESS
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: 'Finish Project'
+                  description:
+                    type: string
+                    example: 'Complete the project by end of the week.'
+                  due_date:
+                    type: string
+                    example: '2024-08-05'
+                  category_id:
+                    type: integer
+                    example: 2
+                  user_id:
+                    type: integer
+                    example: 1
+                  status:
+                    type: string
+                    example: IN_PROGRESS
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Cannot modify this task'
+                properties:
+                  message:
+                    type: string
+                    example: 'Cannot modify this task'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Validation error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Validation error'
+      tags:
+        - Task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: totam
+                description:
+                  type: string
+                  description: 'The description of the task.'
+                  example: 'Complete the project by end of the week.'
+                due_date:
+                  type: date
+                  description: 'The due date of the task.'
+                  example: '2024-08-05'
+                category_id:
+                  type: integer
+                  description: 'The ID of the category.'
+                  example: 2
+                title:
+                  type: string
+                  description: 'The title of the task.'
+                  example: 'Finish Project'
+              required:
+                - name
+      security: []
+    delete:
+      summary: 'Delete a task'
+      operationId: deleteATask
+      description: ''
+      parameters: []
+      responses:
+        204:
+          description: ''
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Cannot delete this task'
+                properties:
+                  message:
+                    type: string
+                    example: 'Cannot delete this task'
+      tags:
+        - Task
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the task.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: task
+        description: 'The ID of the task.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/admin/tasks:
+    get:
+      summary: "Get all tasks for each user\n\nRetrieve a list of all tasks."
+      operationId: getAllTasksForEachUserRetrieveAListOfAllTasks
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 3
+                  name: 'John Doe'
+                  email: john1@example.com
+                  email_verified_at: null
+                  created_at: '2024-07-29T12:24:03.000000Z'
+                  updated_at: '2024-07-29T12:24:03.000000Z'
+                  role_id: 2
+                  tasks_count: 1
+                properties:
+                  id:
+                    type: integer
+                    example: 3
+                  name:
+                    type: string
+                    example: 'John Doe'
+                  email:
+                    type: string
+                    example: john1@example.com
+                  email_verified_at:
+                    type: string
+                    example: null
+                  created_at:
+                    type: string
+                    example: '2024-07-29T12:24:03.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-07-29T12:24:03.000000Z'
+                  role_id:
+                    type: integer
+                    example: 2
+                  tasks_count:
+                    type: integer
+                    example: 1
+      tags:
+        - Task
+      security: []
+  '/api/admin/tasks/{user_id}':
+    get:
+      summary: "Get all tasks for selected user\n\nRetrieve a list of all tasks."
+      operationId: getAllTasksForSelectedUserRetrieveAListOfAllTasks
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  email: john1@example.com
+                  categories:
+                    -
+                      category_name: 'Срочные задачи'
+                      task_count: 1
+                properties:
+                  email:
+                    type: string
+                    example: john1@example.com
+                  categories:
+                    type: array
+                    example:
+                      -
+                        category_name: 'Срочные задачи'
+                        task_count: 1
+                    items:
+                      type: object
+                      properties:
+                        category_name:
+                          type: string
+                          example: 'Срочные задачи'
+                        task_count:
+                          type: integer
+                          example: 1
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Task not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Task not found'
+      tags:
+        - Task
+      security: []
+    parameters:
+      -
+        in: path
+        name: user_id
+        description: 'The ID of the user.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: user
+        description: 'The ID of the user.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: Auth
+    description: ''
+  -
+    name: Category
+    description: ''
+  -
+    name: Task
+    description: ''

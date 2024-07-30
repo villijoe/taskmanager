@@ -1,0 +1,677 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost"
+        }
+    ],
+    "info": {
+        "name": "Task Manager API",
+        "_postman_id": "f64a42ea-3501-46e2-a93f-0c44ccb0ef9a",
+        "description": "API \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u0446\u0438\u044f \u0434\u043b\u044f Task Manager",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Auth",
+            "description": "",
+            "item": [
+                {
+                    "name": "Login user and get token",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"user@example.com\",\"password\":\"secret\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Register new user and get token",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"John Doe\",\"email\":\"user@example.com\",\"password\":\"secret\",\"role_id\":1,\"password_confirmation\":\"secret\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"user\": {\n     \"id\": 1,\n     \"name\": \"John Doe\",\n     \"email\": \"user@example.com\",\n     \"role_id\": 2,\n     \"created_at\": \"2023-07-28T12:00:00.000000Z\",\n     \"updated_at\": \"2023-07-28T12:00:00.000000Z\"\n },\n \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Category",
+            "description": "",
+            "item": [
+                {
+                    "name": "Get list of categories",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/categories",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/categories"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "[\n {\n     \"id\": 1,\n     \"name\": \"\u0421\u0440\u043e\u0447\u043d\u044b\u0435 \u0437\u0430\u0434\u0430\u0447\u0438\",\n     \"type\": \"standard\",\n     \"created_at\": \"2023-07-28T12:00:00.000000Z\",\n     \"updated_at\": \"2023-07-28T12:00:00.000000Z\"\n },\n {\n     \"id\": 2,\n     \"name\": \"\u041f\u043b\u0430\u043d\u043e\u0432\u044b\u0435 \u0437\u0430\u0434\u0430\u0447\u0438\",\n     \"type\": \"normal\",\n     \"created_at\": \"2023-07-28T12:00:00.000000Z\",\n     \"updated_at\": \"2023-07-28T12:00:00.000000Z\"\n }\n]",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a new category",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/categories",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/categories"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"\u041f\u043b\u0430\u043d\u043e\u0432\u044b\u0435 \u0437\u0430\u0434\u0430\u0447\u0438\",\"type\":\"normal\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n \"id\": 2,\n \"name\": \"\u041f\u043b\u0430\u043d\u043e\u0432\u044b\u0435 \u0437\u0430\u0434\u0430\u0447\u0438\",\n \"type\": \"normal\",\n \"created_at\": \"2023-07-28T12:00:00.000000Z\",\n \"updated_at\": \"2023-07-28T12:00:00.000000Z\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get category by ID",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/categories\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/categories\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the category."
+                                },
+                                {
+                                    "id": "category",
+                                    "key": "category",
+                                    "value": "1",
+                                    "description": "The ID of the category."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"id\": 1,\n \"name\": \"\u0421\u0440\u043e\u0447\u043d\u044b\u0435 \u0437\u0430\u0434\u0430\u0447\u0438\",\n \"type\": \"standard\",\n \"created_at\": \"2023-07-28T12:00:00.000000Z\",\n \"updated_at\": \"2023-07-28T12:00:00.000000Z\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update an existing category",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/categories\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/categories\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the category."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u043d\u044b\u0435 \u0437\u0430\u0434\u0430\u0447\u0438\",\"type\":\"normal\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"id\": 1,\n \"name\": \"\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u043d\u044b\u0435 \u0437\u0430\u0434\u0430\u0447\u0438\",\n \"type\": \"normal\",\n \"created_at\": \"2023-07-28T12:00:00.000000Z\",\n \"updated_at\": \"2023-07-28T12:00:00.000000Z\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n \"message\": \"Cannot modify this category\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete a category",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/categories\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/categories\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the category."
+                                },
+                                {
+                                    "id": "category",
+                                    "key": "category",
+                                    "value": "1",
+                                    "description": "The ID of the category."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{\n \"message\": \"Category deleted\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n \"message\": \"Cannot delete this category\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Task",
+            "description": "",
+            "item": [
+                {
+                    "name": "Get list of tasks\n\nRetrieve a list of all tasks. You can filter tasks by category.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/tasks",
+                            "query": [
+                                {
+                                    "key": "category_id",
+                                    "value": "1",
+                                    "description": "Filter tasks by category ID.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/tasks?category_id=1"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"title\": \"Finish Project\",\n  \"description\": \"Complete the project by end of the week.\",\n  \"due_date\": \"2024-08-05\",\n  \"category_id\": 2,\n  \"user_id\": 1,\n  \"status\": \"IN_PROGRESS\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a new task",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/tasks",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/tasks"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"quia\",\"description\":\"Complete the project by end of the week.\",\"due_date\":\"2024-08-05\",\"category_id\":2,\"title\":\"Finish Project\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"id\": 1,\n  \"title\": \"Finish Project\",\n  \"description\": \"Complete the project by end of the week.\",\n  \"due_date\": \"2024-08-05\",\n  \"category_id\": 2,\n  \"user_id\": 1,\n  \"status\": \"IN_PROGRESS\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get a specific task",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/tasks\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/tasks\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the task."
+                                },
+                                {
+                                    "id": "task",
+                                    "key": "task",
+                                    "value": "1",
+                                    "description": "The ID of the task."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"title\": \"Finish Project\",\n  \"description\": \"Complete the project by end of the week.\",\n  \"due_date\": \"2024-08-05\",\n  \"category_id\": 2,\n  \"user_id\": 1,\n  \"status\": \"IN_PROGRESS\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update a task",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/tasks\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/tasks\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the task."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"totam\",\"description\":\"Complete the project by end of the week.\",\"due_date\":\"2024-08-05\",\"category_id\":2,\"title\":\"Finish Project\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"title\": \"Finish Project\",\n  \"description\": \"Complete the project by end of the week.\",\n  \"due_date\": \"2024-08-05\",\n  \"category_id\": 2,\n  \"user_id\": 1,\n  \"status\": \"IN_PROGRESS\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n  \"message\": \"Cannot modify this task\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n \"message\": \"Validation error\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete a task",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/tasks\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/tasks\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the task."
+                                },
+                                {
+                                    "id": "task",
+                                    "key": "task",
+                                    "value": "1",
+                                    "description": "The ID of the task."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{\n \"message\": \"Task deleted\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n \"message\": \"Cannot delete this task\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get all tasks for each user\n\nRetrieve a list of all tasks.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin\/tasks",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/admin\/tasks"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 3,\n  \"name\": \"John Doe\",\n  \"email\": \"john1@example.com\",\n  \"email_verified_at\": null,\n  \"created_at\": \"2024-07-29T12:24:03.000000Z\",\n  \"updated_at\": \"2024-07-29T12:24:03.000000Z\",\n  \"role_id\": 2,\n  \"tasks_count\": 1\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get all tasks for selected user\n\nRetrieve a list of all tasks.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin\/tasks\/:user_id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/admin\/tasks\/:user_id",
+                            "variable": [
+                                {
+                                    "id": "user_id",
+                                    "key": "user_id",
+                                    "value": "1",
+                                    "description": "The ID of the user."
+                                },
+                                {
+                                    "id": "user",
+                                    "key": "user",
+                                    "value": "1",
+                                    "description": "The ID of the user."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"email\": \"john1@example.com\",\n  \"categories\": [\n      {\n          \"category_name\": \"\u0421\u0440\u043e\u0447\u043d\u044b\u0435 \u0437\u0430\u0434\u0430\u0447\u0438\",\n          \"task_count\": 1\n      }\n  ]\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n \"message\": \"Task not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}
